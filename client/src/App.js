@@ -27,7 +27,18 @@ const Container = styled.div`
 `;
 
 function App() {
-  return <div>App</div>;
+  return <ThemeProvider theme={lightTheme}>
+    <BrowserRouter>
+      <Container background={background}>
+        <Navbar/>
+        <Routes>
+          <Route path="/" exact element={<Home/>}/>
+          <Route path="/properties" exact element={<PropertyListing/>}/>
+          <Route path="/properties/:id" exact element={<PropertyDetails/>}/>
+        </Routes>
+      </Container>
+    </BrowserRouter>
+  </ThemeProvider>;
 }
 
 export default App;

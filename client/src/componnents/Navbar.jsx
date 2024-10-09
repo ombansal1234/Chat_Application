@@ -1,17 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import Button from "./Button";
-import {
-  FavoriteBorder,
-  MenuRounded,
-  SearchRounded,
-} from "@mui/icons-material";
-import { Avatar } from "@mui/material";
+import styled from "styled-components";
 // import { logout } from "../redux/reducers/userSlice";
-import { useDispatch } from "react-redux";
 import LogoImg from "../utils/Images/Logo.svg";
-import { logout } from "../redux/reducers/userSlice";
 
 const Nav = styled.div`
   padding: 10px;
@@ -143,7 +134,13 @@ const TextButton = styled.div`
 `;
 
 const Navbar = () => {
-  return <div>Navbar</div>;
+  return <Nav>
+    <NavbarContainer>
+      <NavLogo>
+        <Logo src={LogoImg}/>
+      </NavLogo>
+    </NavbarContainer>
+  </Nav>;
 };
 
 export default Navbar;
