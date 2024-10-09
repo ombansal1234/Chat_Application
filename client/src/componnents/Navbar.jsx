@@ -139,6 +139,13 @@ const Navbar = () => {
       <NavLogo>
         <Logo src={LogoImg}/>
       </NavLogo>
+
+      <NavItems>
+        <Navlink to="/" >Home</Navlink>
+        <Navlink to="/properties" >Places to stay</Navlink>
+        <Navlink to="/contact" >Contact</Navlink>
+        <Navlink to="/blogs" >Blogs</Navlink>
+      </NavItems>
     </NavbarContainer>
   </Nav>;
 };
