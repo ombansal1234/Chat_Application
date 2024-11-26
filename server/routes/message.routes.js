@@ -7,6 +7,6 @@ const router = express.Router ();
 router.get("/users", protectedRoute, getUsersForSidebar)
 router.get("/:id", protectedRoute, getMessages)
 
-router.route('/:id').post(asyncHandler(protectedRoute,sendMessage)).get(protectedRoute,getMessages);
+router.route('/:id').post(protectedRoute,sendMessage).get(protectedRoute,getMessages);
 
 export default router;
