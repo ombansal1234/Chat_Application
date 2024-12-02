@@ -17,7 +17,13 @@ connectDB()
 
 const app=express()
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+    origin: (origin, callback) => {
+        callback(null, true);
+    },
+    credentials: true,
+}));
+
 app.use(morgan('dev'))
 app.use(cookieParser());
 const PORT=process.env.PORT
