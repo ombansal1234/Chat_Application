@@ -52,7 +52,7 @@ export const logout = (req,res,next)=>{
 };
   
 export const updateProfile=async(req,res,next)=>{
-    console.log(req.body)
+    //console.log(req.body)
     const {profilePic}=req.body
     const userId=req.user._id
 
@@ -60,8 +60,9 @@ export const updateProfile=async(req,res,next)=>{
 
     const uploadResponse=await cloudinary.uploader.upload(profilePic)
     const updatedUser=await User.findByIdAndUpdate(userId,{profilePic:uploadResponse.secure_url},{new:true})
+    updatedUser.message="success"
 
-    return dataSender(res,{message:"success",...updatedUser},200)  
+    return dataSender(res,updatedUser,200)  
 }
 
 export const checkAuth=(req,res)=>{
