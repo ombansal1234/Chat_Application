@@ -9,13 +9,14 @@ import authRoutes from './routes/auth.routes.js'
 import messageRoutes from './routes/message.routes.js'
 import { connectDB } from './lib/database/db.js'
 import { errorHandler } from './lib/errors/errorHandler.js';
+import { app, server } from './lib/socket/socket.js';
+
+import path from "path"
 
 dotenv.config()
 colors.enable();
 connectDB()
 
-
-const app=express()
 app.use(express.json({ limit: '50mb' }));
 app.use(cors({
     origin: (origin, callback) => {
@@ -27,12 +28,20 @@ app.use(cors({
 app.use(morgan('dev'))
 app.use(cookieParser());
 const PORT=process.env.PORT
+const __dirname=path.resolve()
+
+if(process.env.NODE_ENV==="production"){
+    app.use(express.static(path.join(__dirname,"../client/dist")))
+    app.get("*",(req,res)=>{
+        res.sendFile(path.join(__dirname,"../client","dist","index.html"))
+    })
+}
 
 app.use("/api/auth",authRoutes)
-app.use("/api/message",messageRoutes)
+app.use("/api/messages",messageRoutes)
 app.use(errorHandler);
 
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     console.log(colors.bgCyan(colors.white(`server is running on port ${PORT}`)));
 
 })

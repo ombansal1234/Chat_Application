@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { LogOut, MessageSquare, Settings, User } from "lucide-react";
+import { useChatStore } from "../store/useChatStore";
 
 
 const Navbar = () => {
   const {logout,authUser} =useAuthStore()
-  console.log(authUser)
+  const {resetSelectedUser}=useChatStore()
 
+  const logoutHandler=()=>{
+    logout();
+    // if user has selected any sender id then refesh it
+    resetSelectedUser()
+  }
 
   return (
     <header className="bg-base-100 border-b border-base-300 fixed w-full top-0 z-40 backdrop-blur-lg bg-base-100/80">
@@ -34,7 +40,7 @@ const Navbar = () => {
                   <span className="hidden sm:inline">Profile</span>
                 </Link>
 
-                <Link to={"/login"} className="flex gap-2 items-center" onClick={logout}>
+                <Link to={"/login"} className="flex gap-2 items-center" onClick={logoutHandler}>
                   <LogOut className="size-5" />
                   <span className="hidden sm:inline">Logout</span>
                 </Link>

@@ -1,5 +1,6 @@
 import cloudinary from "../lib/cloudinary/cloudinary.js"
 import { dataSender } from "../lib/data/dataSender.js"
+import { getReceiverSocketId, io } from "../lib/socket/socket.js"
 import Message from '../models/message.model.js'
 import User from "../models/user.model.js"
 
@@ -7,8 +8,9 @@ export const getUsersForSidebar=async(req,res)=>{
     const loggedInUserId=req.user._id
     // get all user except yourself id!=yourself
     const filterUsers=await User.find({_id:{$ne:loggedInUserId}}).select('-password')
+    // filterUsers.message="success"
     
-    return dataSender(res,{message:"success",data:filterUsers},200)
+    return dataSender(res,filterUsers,200)
 }
 
 export const getMessages=async(req,res)=>{
@@ -23,7 +25,7 @@ export const getMessages=async(req,res)=>{
         ]
     });
 
-    return dataSender(res,{message:"success",data:messages},200)
+    return dataSender(res,messages,200)
 }
 
 export const sendMessage=async(req,res)=>{
@@ -44,5 +46,11 @@ export const sendMessage=async(req,res)=>{
     })
     await newMessage.save()
 
-    return dataSender(res,{message:"success",...newMessage},200)
+    const receiverSocketId=getReceiverSocketId(receiverId)
+    //mean reciever is online 
+    if(receiverSocketId){
+        io.to(receiverSocketId).emit("newMessage",newMessage)
+    }
+
+    return dataSender(res,newMessage,200)
 }
