@@ -25,7 +25,7 @@ app.use(cors({
 
 app.use(morgan('dev'))
 app.use(cookieParser());
-const PORT=process.env.PORT
+const PORT=process.env.PORT || 3100
 
 app.use("/api/auth",authRoutes)
 app.use("/api/messages",messageRoutes)
