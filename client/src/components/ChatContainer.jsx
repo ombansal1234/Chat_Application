@@ -46,6 +46,23 @@ console.log("selectedUser "+selectedUser?._id)
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
 
+      {/* <div
+                        className={`
+                          max-w-[80%] rounded-xl p-3 shadow-sm
+                          ${message.isSent ? "bg-primary text-primary-content" : "bg-base-200"}
+                        `}
+                      >
+                        <p className="text-sm">{message.content}</p>
+                        <p
+                          className={`
+                            text-[10px] mt-1.5
+                            ${message.isSent ? "text-primary-content/70" : "text-base-content/70"}
+                          `}
+                        >
+                          12:00 PM
+                        </p>
+                      </div> */}
+
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <div
@@ -68,11 +85,11 @@ console.log("selectedUser "+selectedUser?._id)
               </div>
             </div>
             <div className="chat-header mb-1">
-              <time className="text-xs opacity-50 ml-1">
+              <time className={`text-xs opacity-50 ml-1`}>
                 {formatMessageTime(message.createdAt)}
               </time>
             </div>
-            <div className={`chat-bubble flex flex-col ${message.senderId === authUser._id ? "bg-primary" : ""}`}>
+            <div className={`chat-bubble flex flex-col ${message.senderId === authUser._id ? "bg-primary text-primary-content" : "bg-base-200 text-base-content"}`}>
               {message.image && (
                 <img
                   src={message.image}

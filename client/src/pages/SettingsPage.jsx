@@ -62,10 +62,7 @@ const SettingsPage = () => {
                 {/* Chat Messages */}
                 <div className="p-4 space-y-4 min-h-[200px] max-h-[200px] overflow-y-auto bg-base-100">
                   {PREVIEW_MESSAGES.map((message) => (
-                    <div
-                      key={message.id}
-                      className={`flex ${message.isSent ? "justify-end" : "justify-start"}`}
-                    >
+                    <div key={message.id} className={`flex ${message.isSent ? "justify-end" : "justify-start"}`}>
                       <div
                         className={`
                           max-w-[80%] rounded-xl p-3 shadow-sm
